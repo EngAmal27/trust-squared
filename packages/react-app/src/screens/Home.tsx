@@ -5,8 +5,7 @@ import { useBalanceStream } from "@/hooks/useBalanceStream";
 import { formatScore } from "@/utils";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { QRCodeSVG } from "qrcode.react";
-import { useAccount } from "wagmi";
-import { useVerifiedIdentities } from "@/hooks/useVerifiedIdentities";
+import { usePrivy } from "@privy-io/react-auth";
 
 // const formatScore = (rate: string) => {
 //     const score = ((Number(rate) / 1e18) * 1e5).toFixed(2);
@@ -14,24 +13,15 @@ import { useVerifiedIdentities } from "@/hooks/useVerifiedIdentities";
 //   };
 
 export default function Home() {
-  //this will try to get user verified by the backened
-  const verifierResult = useVerifier();
-  const account = useAccount()
-  const { data } = useGetMember(account.address as string)
-  // console.log({data, addr: account.address})
-  const identities = useVerifiedIdentities(account.address)
-  // console.log({identities})
-
+  const { user } = usePrivy();
+  console.log("user", user?.wallet);
+  const { data, status } = useGetMember(user?.wallet?.address as string);
   // @ts-ignore
-  const balance = useBalanceStream(
-    account.address,
-    // @ts-ignore
-    data?.data?.member?.inFlowRate - data?.data?.member?.outFlowRate
-  );
-
-  const { user = {} } = useDynamicContext();
-
-  // return <div>home</div>;
+  // const balance = useBalanceStream(
+  //   user?.wallet?.address,
+  //   // @ts-ignore
+  //   data?.data?.member?.inFlowRate - data?.data?.member?.outFlowRate
+  // );
 
   // return
   return (
@@ -40,9 +30,9 @@ export default function Home() {
         style={{ boxShadow: "0px 4px 4px 0px #00000040" }}
         className="bg-[#DFF7E2] rounded-3xl p-8 flex flex-col items-center gap-4"
       >
-        {account.address && (
+        {user?.wallet?.address && (
           <TrustAccount
-            address={account.address as string}
+            address={user?.wallet?.address as string}
             // @ts-ignore
             name={user?.alias || user?.email?.split("@")[0] || ""}
           />
@@ -51,7 +41,7 @@ export default function Home() {
         <QRCodeSVG
           bgColor="transparent"
           className="rounded-lg"
-          value={account.address as string}
+          value={user?.wallet?.address as string}
           size={200}
           level="H"
           includeMargin={true}
@@ -65,12 +55,12 @@ export default function Home() {
             </span>
           </div>
 
-          <div className="flex justify-between items-center flex-col">
+          {/* <div className="flex justify-between items-center flex-col">
             <span>Balance</span>
             <span className=" text-xl text-[#36B82A]">
               {balance?.toString()} G$
             </span>
-          </div>
+          </div> */}
           {/* <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
             <CiUser />

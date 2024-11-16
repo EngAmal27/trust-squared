@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useAccount } from "wagmi";
 import "./App.css";
 import BottomNavbar from "./components/BottomNavbar";
 import Navbar from "./components/Navbar";
@@ -10,12 +9,14 @@ import Login from "./screens/Login";
 import { QrScan } from "./screens/TrustAction";
 import Trusters from "./screens/Trusters";
 
+import { usePrivy } from "@privy-io/react-auth";
+
 function App() {
-  const { isConnected, address } = useAccount();
-  console.log({ isConnected }, { address });
+  const { authenticated } = usePrivy();
+
   return (
     <BrowserRouter>
-      {!isConnected ? (
+      {!authenticated ? (
         <Login />
       ) : (
         <Routes>

@@ -88,7 +88,6 @@ export const useGetMemberTrusters = (memberId: string) => {
 };
 
 export const useGetMember = (memberId: string) => {
-
   const queryKey = ["member", memberId];
   const queryFn = () => fetchMemberData(memberId);
   return useGenericQuery(queryKey, queryFn);
