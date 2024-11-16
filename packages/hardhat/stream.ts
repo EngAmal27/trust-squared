@@ -12,6 +12,8 @@ const add = async () => {
     await pool.addMember("0xEE0eD5B7756A3ee8e01C0D5e7b707DB2794900ee", 1);
     await pool.addMember("0xDe348c7Ccd3060Eb7911c5fF9Dd4c93bC8D34B8F", 1);
     await pool.addMember("0x2CeADe86A04e474F3cf9BD87208514d818010627", 1);
+    await pool.addMember("0x4F7c20357D0e9e51a90FCf4E40950453D5a591ae", 1);
+    await pool.addMember("0x80617169feA613ea7eD32f5ba5Cbb08548FB0019", 1);
 
 
 }

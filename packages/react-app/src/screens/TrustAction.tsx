@@ -23,10 +23,7 @@ const useGetFlowRate = (sender: string | undefined) => {
   if (!sender) return undefined;
   const memberData = useGetMember(sender);
   // @ts-ignore
-  return memberData?.data?.outFlowRate
-    ? // @ts-ignore
-      BigInt(memberData?.data?.outFlowRate)
-    : undefined;
+  return memberData.status === "success" ? BigInt(memberData.data?.data?.outFlowRate || 0) : undefined
 };
 
 export const QrScan = () => {

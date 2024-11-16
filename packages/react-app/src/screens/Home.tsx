@@ -27,7 +27,7 @@ export default function Home() {
   const balance = useBalanceStream(
     account.address,
     // @ts-ignore
-    data?.data?.member?.inFlowRate - data?.data?.member?.outFlowRate
+    BigInt(data?.data?.member?.inFlowRate || 0) - BigInt(data?.data?.member?.outFlowRate || 0)
   );
 
   const { user = {} } = useDynamicContext();

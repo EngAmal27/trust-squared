@@ -50,5 +50,5 @@ export const formatFlow = (flow: string) => {
 };
 
 export function getAddressLink(address: string) {
-  return `https://explorer.superfluid.finance/celo/accounts/${address}?tab=tokens`;
+  return `https://explorer.celo.org/address/${address}`;
 }
