@@ -1,4 +1,4 @@
-import TrustAccount, { randomWalletAddress } from "@/components/TrustAccount";
+import TrustAccount from "@/components/TrustAccount";
 import { useGetMemberTrusters } from "@/hooks/queries/useGetMember";
 import { formatFlow, truncateAddress } from "@/utils";
 import Blockies from "react-blockies";
@@ -62,7 +62,7 @@ export default function Trusters() {
   return (
     <div className="px-4">
       <div className="py-2">
-        <TrustAccount address={randomWalletAddress()} />
+        <TrustAccount address={address || ""} />
 
         <div className="py-4 flex flex-col gap-4 items-center justify-between">
           <div className="flex items-end gap-4">

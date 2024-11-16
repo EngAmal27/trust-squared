@@ -1,10 +1,8 @@
-import TrustAccount, { randomWalletAddress } from "@/components/TrustAccount";
+import TrustAccount from "@/components/TrustAccount";
 import { useGetMemberTrustees } from "@/hooks/queries/useGetMember";
 import { formatFlow, truncateAddress } from "@/utils";
-import { useState } from "react";
 import Blockies from "react-blockies";
 import { CiLocationArrow1, CiUser } from "react-icons/ci";
-import { etherUnits, formatUnits } from "viem";
 import { useAccount } from "wagmi";
 
 export const stats = {
@@ -58,7 +56,7 @@ export default function History() {
   return (
     <div className="px-4">
       <div className="py-2">
-        <TrustAccount address={randomWalletAddress()} />
+        <TrustAccount address={address || ""} />
 
         <div className="py-4 flex flex-col gap-4 items-center justify-center">
           <div className="flex items-end gap-4">

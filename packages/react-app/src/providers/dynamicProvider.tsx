@@ -43,7 +43,7 @@ export default function DynamicProvider({
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <DynamicWagmiConnector>
-            <DynamicWidget />
+            {/* <DynamicWidget /> */}
             {children}
           </DynamicWagmiConnector>
         </QueryClientProvider>

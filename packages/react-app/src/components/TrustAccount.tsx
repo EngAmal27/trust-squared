@@ -5,19 +5,16 @@ interface ProfileCardProps {
   address: string;
   name?: string;
 }
-export const randomWalletAddress = () => {
-  const chars = "0123456789abcdef";
-  let address = "0x";
-  for (let i = 0; i < 40; i++) {
-    address += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return address;
-};
+// export const randomWalletAddress = () => {
+//   const chars = "0123456789abcdef";
+//   let address = "0x";
+//   for (let i = 0; i < 40; i++) {
+//     address += chars[Math.floor(Math.random() * chars.length)];
+//   }
+//   return address;
+// };
 
-export default function TrustAccount({
-  address,
-  name = '',
-}: ProfileCardProps) {
+export default function TrustAccount({ address, name = "" }: ProfileCardProps) {
   return (
     <div className="flex items-centerp-4 rounded-lg px-4">
       {/* Profile Picture */}

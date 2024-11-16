@@ -4,11 +4,11 @@ import "./App.css";
 import BottomNavbar from "./components/BottomNavbar";
 import Navbar from "./components/Navbar";
 import Deligates from "./screens/Deligates";
-import Trusters from "./screens/Trusters";
 import Home from "./screens/Home";
 import Layout from "./screens/Layout";
-import { MiniPay } from "./screens/Login";
+import Login from "./screens/Login";
 import { QrScan } from "./screens/TrustAction";
+import Trusters from "./screens/Trusters";
 
 function App() {
   const { isConnected, address } = useAccount();
@@ -16,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       {!isConnected ? (
-        <MiniPay />
+        <Login />
       ) : (
         <Routes>
           {/* Other routes with navbars */}

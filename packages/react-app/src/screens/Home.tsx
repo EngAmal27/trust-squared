@@ -26,12 +26,11 @@ export default function Home() {
     data?.data?.member?.inFlowRate - data?.data?.member?.outFlowRate
   );
 
-  if (status === "error") return <div>Error</div>;
+  const { user = {} } = useDynamicContext();
 
-  if (!data) return <div>No data</div>;
+  // return <div>home</div>;
 
-  const { user } = useDynamicContext();
-
+  // return
   return (
     <div className="flex flex-col w-full items-center">
       <div
@@ -41,7 +40,8 @@ export default function Home() {
         {account.address && (
           <TrustAccount
             address={account.address as string}
-            name={user?.alias || user?.email}
+            // @ts-ignore
+            name={user?.alias || user?.email?.split("@")[0] || ""}
           />
         )}
 

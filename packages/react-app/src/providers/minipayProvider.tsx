@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { injected } from "@wagmi/connectors";
 import { celo } from "viem/chains";
 import { http } from "viem";
+import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";
 
 // Create config
 const config = createConfig({
@@ -21,12 +22,19 @@ export default function MiniPayProvider({
   queryClient: QueryClient;
 }) {
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <MiniPayWidget />
-        {children}
-      </QueryClientProvider>
-    </WagmiProvider>
+    <DynamicContextProvider
+      settings={{
+        appName: "Trusted Square",
+        environmentId: "d9ba107d-58b4-49db-9f8b-475239b06071",
+      }}
+    >
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          {/* <MiniPayWidget /> */}
+          {children}
+        </QueryClientProvider>
+      </WagmiProvider>
+    </DynamicContextProvider>
   );
 }
 
@@ -47,7 +55,7 @@ function MiniPayWidget() {
   return (
     <div>
       {isConnected ? (
-        <div>Connected to {address}</div>
+        <div></div>
       ) : (
         <button onClick={onConnect}>Connect MiniPay</button>
       )}
