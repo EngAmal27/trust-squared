@@ -15,3 +15,8 @@ export interface Member {
 export interface DetailsProps {
   memberId: string;
 }
+
+export interface VerifierResult {
+  isGoodId: boolean;
+  isNouns: boolean;
+}

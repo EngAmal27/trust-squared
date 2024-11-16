@@ -1,7 +1,11 @@
 import TrustAccount, { randomWalletAddress } from "@/components/TrustAccount";
 import { QRCodeSVG } from "qrcode.react";
+import { useVerifier } from "@/hooks/queries/useVerifier";
 
 export default function Home() {
+
+  //this will try to get user verified by the backened
+  const verifierResult = useVerifier()
   return (
     <div className="flex flex-col w-full items-center">
       <div
