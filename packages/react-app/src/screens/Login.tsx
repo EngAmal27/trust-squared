@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { IEthereum } from "@dynamic-labs/ethereum";
+import { DynamicConnectButton } from "@dynamic-labs/sdk-react-core";
 
 export default function Login() {
   const isMiniPay = (
@@ -10,22 +10,24 @@ export default function Login() {
     }
   )?.ethereum?.isMiniPay;
 
+  const onLogin = () => {};
+
   return (
     <div className="flex flex-col gap-4 items-center justify-center h-screen w-auto max-w-md mx-auto">
       <img src="/logo2.svg" alt="logo" className="w-44" />
       <p className="text-center text-sm text-muted-foreground mb-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.{" "}
       </p>
-      <Button
-        className="min-w-80"
-        onClick={() => {
-          if (isMiniPay) {
-            window.location.href = "https://minipay.celo.org";
-          }
-        }}
+      <DynamicConnectButton
+        buttonClassName="min-w-80 bg-primary text-white"
+        // onClick={() => {
+        //   if (isMiniPay) {
+        //     window.location.href = "https://minipay.celo.org";
+        //   }
+        // }}
       >
         Login {isMiniPay ? "with MiniPay" : null}
-      </Button>
+      </DynamicConnectButton>
     </div>
   );
 }

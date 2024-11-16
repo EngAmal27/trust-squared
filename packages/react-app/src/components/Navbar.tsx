@@ -1,7 +1,5 @@
 import { CiSettings } from "react-icons/ci";
 
-
-
 export default function Navbar() {
   return (
     <div className="flex justify-between items-center p-4">

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-export const useTestQuery = <T>(
+export const useGenericQuery = <T>(
   queryKey: string[],
   queryFn: () => Promise<T>
 ) => {
