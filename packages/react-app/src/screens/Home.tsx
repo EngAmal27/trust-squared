@@ -33,7 +33,7 @@ export default function Home() {
         style={{ boxShadow: "0px 4px 4px 0px #00000040" }}
         className="bg-[#DFF7E2] rounded-3xl p-8 flex flex-col items-center gap-4"
       >
-        <TrustAccount address={account.address as string} name={user?.alias || user?.email} />
+        {account.address && <TrustAccount address={account.address as string} name={user?.alias || user?.email} />}
 
         <QRCodeSVG
           bgColor="transparent"
