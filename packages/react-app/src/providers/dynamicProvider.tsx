@@ -10,11 +10,10 @@ import { http } from "viem";
 import { celo, mainnet } from "viem/chains";
 import { createConfig, WagmiProvider } from "wagmi";
 
-const config = createConfig({
-  chains: [mainnet, celo],
+export const config = createConfig({
+  chains: [celo],
   multiInjectedProviderDiscovery: false,
   transports: {
-    [mainnet.id]: http(),
     [celo.id]: http(),
   },
 });

@@ -8,7 +8,7 @@ dataSources:
     name: TrustPool
     network: celo
     source:
-      address: "0xdf1678797300F45cE221c18c6Dc5ae208a5040C5"
+      address: "0x559Fc954873E175Ad8e0334cad4b80CB6D9f1A99"
       abi: TrustPool
       startBlock: 28811137
     mapping:

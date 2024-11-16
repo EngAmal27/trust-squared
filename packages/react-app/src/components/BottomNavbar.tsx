@@ -1,6 +1,6 @@
 import { CiHome as IconHome, CiUser as IconTrusters } from "react-icons/ci";
 import {
-  FaHandHoldingUsd as IconDeligates,
+  FaHandHoldingUsd as IconTrustees,
   FaChartArea as IconHistory,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -21,10 +21,10 @@ const navbarItems = {
     label: "History",
     route: "/history",
   },
-  deligates: {
-    icon: <IconDeligates className="w-8 h-auto bg-white rounded-sm p-1" />,
-    label: "Deligates",
-    route: "/deligates",
+  trustees: {
+    icon: <IconTrustees className="w-8 h-auto bg-white rounded-sm p-1" />,
+    label: "Trustees",
+    route: "/trustees",
   },
 };
 
@@ -45,7 +45,7 @@ export default function BottomNavbar() {
                 className="w-full h-8 rounded-sm p-0"
                 color="#36B82A"
               />
-              <span className="text-md   text-[#36B82A]">Trusters</span>
+              <span className="text-md   text-[#36B82A]">Supporters</span>
             </div>
           </Link>
 
@@ -60,20 +60,20 @@ export default function BottomNavbar() {
           </Link>
 
           <Link
-            to={`/deligates`}
+            to={`/trustees`}
             style={{
               boxShadow: "0px 4px 4px 0px #00000040",
             }}
             className={`flex bg-[#36B82A4D] justify-end rounded-xl items-center flex-grow  px-2 `}
           >
             <div className="flex  items-center p-2 gap-1">
-              <IconDeligates
+              <IconTrustees
                 className="w-full h-8 rounded-sm p-0"
                 color="#AC481E"
               />
-              <span className="text-md text-[#AC481E]">Deligates</span>
+              <span className="text-md text-[#AC481E]">Trustees</span>
             </div>
-            {/* <IconDeligates className="w-full h-14 rounded-sm p-1" color="#AC481E" />
+            {/* <IconTrustees className="w-full h-14 rounded-sm p-1" color="#AC481E" />
             <span className="text-xl text-[#AC481E]">$200</span> */}
           </Link>
 
