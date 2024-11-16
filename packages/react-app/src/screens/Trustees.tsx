@@ -22,9 +22,9 @@ export const stats = {
     value: 1,
   },
 
-  delegates: {
+  trustees: {
     icon: <CiLocationArrow1 className="h-8 w-auto" />,
-    label: "Delegates",
+    label: "Trustees",
     value: 1,
   },
 };
@@ -47,7 +47,7 @@ export default function History() {
   const { address } = useAccount();
   const { data, status } = useGetMemberTrustees(address ?? "");
 
-  const totalDelegates = data?.data?.member?.trustees.length;
+  const totalTrustees = data?.data?.member?.trustees.length;
   const totalFlow = data?.data?.member?.trustees.reduce(
     (acc, curr) => acc + Number(curr.flowRate),
     0
@@ -61,8 +61,8 @@ export default function History() {
         <div className="py-4 flex flex-col gap-4 items-center justify-center">
           <div className="flex items-end gap-4">
             <CiUser className="h-8 w-auto" />
-            <div className="font-lg ">{"Total Delegates"}</div>
-            <div className="text-xl text-[#36B82A]">{totalDelegates}</div>
+            <div className="font-lg ">{"Total Trustees"}</div>
+            <div className="text-xl text-[#36B82A]">{totalTrustees}</div>
           </div>
 
           <div className="flex items-center gap-4">
@@ -78,7 +78,7 @@ export default function History() {
       {/* Headers */}
       <div className="flex justify-between py-4 font-semibold text-gray-600">
         <div>Address</div>
-        <div>Amount Delegated</div>
+        <div>Amount Trusted</div>
       </div>
 
       {/* List */}

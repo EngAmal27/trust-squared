@@ -16,10 +16,7 @@ import { useVerifiedIdentities } from "@/hooks/useVerifiedIdentities";
 export default function Home() {
   //this will try to get user verified by the backened
   const verifierResult = useVerifier();
-
-  const { address } = useAccount();
-
-    const account = useAccount()
+  const account = useAccount()
   const { data } = useGetMember(account.address as string)
   // console.log({data, addr: account.address})
   const identities = useVerifiedIdentities(account.address)
