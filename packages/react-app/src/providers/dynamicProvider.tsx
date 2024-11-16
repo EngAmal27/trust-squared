@@ -2,21 +2,18 @@ import { AlgorandWalletConnectors } from "@dynamic-labs/algorand";
 import { CosmosWalletConnectors } from "@dynamic-labs/cosmos";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import {
-  DynamicContextProvider,
-  DynamicWidget,
+  DynamicContextProvider
 } from "@dynamic-labs/sdk-react-core";
 import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { http } from "viem";
 import { celo, mainnet } from "viem/chains";
-import { createConfig, useConnect, useAccount, WagmiProvider } from "wagmi";
-import { injected } from "@wagmi/connectors";
+import { createConfig, WagmiProvider } from "wagmi";
 
-const config = createConfig({
-  chains: [mainnet, celo],
+export const config = createConfig({
+  chains: [celo],
   multiInjectedProviderDiscovery: false,
   transports: {
-    [mainnet.id]: http(),
     [celo.id]: http(),
   },
 });

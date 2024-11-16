@@ -3,7 +3,7 @@ import { useAccount } from "wagmi";
 import "./App.css";
 import BottomNavbar from "./components/BottomNavbar";
 import Navbar from "./components/Navbar";
-import Deligates from "./screens/Deligates";
+import Trustees from "./screens/Trustees";
 import Home from "./screens/Home";
 import Layout from "./screens/Layout";
 import Login from "./screens/Login";
@@ -36,10 +36,10 @@ function App() {
                     }
                   />
                   <Route
-                    path="/deligates"
+                    path="/trustees"
                     element={
                       <Layout>
-                        <Deligates />
+                        <Trustees />
                       </Layout>
                     }
                   />

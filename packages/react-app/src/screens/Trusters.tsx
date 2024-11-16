@@ -22,9 +22,9 @@ export const stats = {
     value: 1,
   },
 
-  delegates: {
+  trustees: {
     icon: <CiLocationArrow1 className="h-8 w-auto" />,
-    label: "Delegates",
+    label: "Trustees",
     value: 1,
   },
 };
@@ -86,7 +86,7 @@ export default function Trusters() {
       {/* Headers */}
       <div className="flex justify-between py-4 font-semibold text-gray-600">
         <div>Address</div>
-        <div>Amount Delegated</div>
+        <div>Amount Trusted</div>
       </div>
 
       {/* List */}

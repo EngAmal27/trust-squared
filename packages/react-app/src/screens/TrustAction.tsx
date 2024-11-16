@@ -17,6 +17,7 @@ import { Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { PasteInput } from "@/components/PasteInput";
 import { useGetMember } from "@/hooks/queries/useGetMember";
+import { truncateAddress } from "@/utils";
 
 const useGetFlowRate = (sender: string | undefined) => {
   if (!sender) return undefined;
@@ -104,8 +105,8 @@ export const QrScan = () => {
       "Trust"
     );
     return (
-      <div>
-        <div>{result}</div>
+      <div className="flex flex-col gap-4 justify-center items-start">
+        <div>{truncateAddress(result || "")}</div>
         <Input
           type="number"
           name="amount"
@@ -118,12 +119,13 @@ export const QrScan = () => {
         </Button>
       </div>
     );
-  } else
+  } else {
     return (
-      <div>
+      <div className="flex flex-col gap-4 justify-center items-center">
         <Scanner onScan={handleScan} />
         <PasteInput onChange={(text: string) => setResult(text)} />
         {/* <div>Trustee Address:{result}</div> */}
       </div>
     );
+  }
 };
