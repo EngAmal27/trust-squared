@@ -7,7 +7,7 @@ const verifyMember = async (address?: string) => {
     return fetch(API_URL + `/api/verify?address=${address}`).then(res => res.json()) as Promise<VerifierResult>
 }
 export const useVerifyMember = (memberId: `0x${string}` | undefined) => {
-    const queryKey = ["member", memberId || ''];
+    const queryKey = ["verifierResult", memberId || ''];
     const queryFn = () => verifyMember(memberId);
     return useGenericQuery(queryKey, queryFn);
 };
