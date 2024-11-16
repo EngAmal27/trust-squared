@@ -49,5 +49,5 @@ export const useBalanceStream = (
     }, [gdBalance, startTime]);
 
 
-    return balance ? (Number(balance) / 1e18).toFixed(6) : undefined
+    return balance ? (Number(balance) / 1e18).toLocaleString() : undefined
 }
