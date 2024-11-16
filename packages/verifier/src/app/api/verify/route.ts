@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
-import { NextRequest, NextResponse } from "next/server";
-import { waitUntil } from "@vercel/functions";
+import { NextRequest } from 'next/server'
+// import { waitUntil } from '@vercel/functions';
 
 import ABI from "../../../../abi/TrustPool.json";
 export const dynamic = "force-dynamic"; // static by default, unless reading the request
@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
         existing = await poolContract.members(1, memberAddress);
         if (!existing) await poolContract.addMember(memberAddress, 1);
       } catch (e) {
-        console.log("failed adding goodid member");
+        console.log("failed adding goodid member", e);
       }
     }
     if (isNoun) {
@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
         existing = await poolContract.members(3, memberAddress);
         if (!existing) await poolContract.addMember(memberAddress, 3);
       } catch (e) {
-        console.log("failed adding noun member");
+        console.log("failed adding noun member", e);
       }
     }
 
