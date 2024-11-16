@@ -3,6 +3,12 @@ import { Framework } from '@superfluid-finance/sdk-core';
 import { TrustPool } from '../typechain-types';
 import { ethers, network } from 'hardhat';
 
+const add = async () => {
+    const trustpool = "0xdf1678797300F45cE221c18c6Dc5ae208a5040C5"
+
+    const pool = await ethers.getContractAt("TrustPool", trustpool);
+    await pool.addMember("0x6d25941a5ac05bcc2245b20c6d45c5de0ace7fe5", 1);
+}
 const stream = async () => {
     const signers = await ethers.getSigners()
     const senderSigner = signers[0]
@@ -31,4 +37,4 @@ const stream = async () => {
     console.log(tx)
 
 }
-stream()
+add()

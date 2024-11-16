@@ -1,10 +1,12 @@
 import TrustAccount, { randomWalletAddress } from "@/components/TrustAccount";
-import { useGetMemberTrustees } from "@/hooks/queries/useGetMember";
+import {
+  useGetMemberTrustees,
+  useGetMemberTrusters,
+} from "@/hooks/queries/useGetMember";
 import { formatFlow, SAMPLE_ADDRESS, truncateAddress } from "@/utils";
-import { useState } from "react";
 import Blockies from "react-blockies";
+import { formatUnits, parseEther } from "viem";
 import { CiLocationArrow1, CiUser } from "react-icons/ci";
-import { etherUnits, formatUnits } from "viem";
 
 export const stats = {
   score: {
@@ -44,30 +46,39 @@ export function Stat({
   );
 }
 
-export default function History() {
-  const { data, status } = useGetMemberTrustees(SAMPLE_ADDRESS);
+export default function Trusters() {
+  // const [timePeriod] = useState<"day" | "week" | "month" | "year">("day");
+  // const delegations = [
+  //   { address: "0x123...456", name: "Alice", amount: "100 G$" },
+  //   { address: "0x789...012", name: "Bob", amount: "50 G$" },
+  // ];
 
-  const totalDelegates = data?.data.member.trustees.length;
-  const totalFlow = data?.data.member.trustees.reduce(
+  const { data, status } = useGetMemberTrusters(SAMPLE_ADDRESS);
+
+  const totalSupporters = data?.data.member.trusters.length;
+  const totalFlow = data?.data.member.trusters.reduce(
     (acc, curr) => acc + Number(curr.flowRate),
     0
   );
+
 
   return (
     <div className="px-4">
       <div className="py-2">
         <TrustAccount address={randomWalletAddress()} />
 
-        <div className="py-4 flex flex-col gap-4 items-center justify-center">
+        <div className="py-4 flex flex-col gap-4 items-center justify-between">
           <div className="flex items-end gap-4">
             <CiUser className="h-8 w-auto" />
-            <div className="font-lg ">{"Total Delegates"}</div>
-            <div className="text-xl text-[#36B82A]">{totalDelegates}</div>
+            <div className="font-lg ">{"Total Supporters"}</div>
+            <div className="text-xl text-[#36B82A]">
+              {totalSupporters ? totalSupporters : "0"}
+            </div>
           </div>
 
           <div className="flex items-center gap-4">
             <CiLocationArrow1 className="h-8 w-auto" />
-            <div className="font-lg ">{"Total Outflow"}</div>
+            <div className="font-lg ">{"Total Inflow"}</div>
             <div className="text-xl text-[#36B82A]">
               {totalFlow ? formatFlow(totalFlow.toString()) : "0"}
             </div>
@@ -83,7 +94,7 @@ export default function History() {
 
       {/* List */}
       <div className="space-y-4">
-        {data?.data.member.trustees.map((t) => (
+        {data?.data.member.trusters.map((t) => (
           <div key={t.id} className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Blockies

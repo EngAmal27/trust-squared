@@ -1,18 +1,18 @@
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login, { MiniPay } from "./screens/Login";
-import Navbar from "./components/Navbar";
-import BottomNavbar from "./components/BottomNavbar";
-import Home from "./screens/Home";
-import Deligates from "./screens/Deligates";
-import ProfileCard from "./components/ProfileCard";
-import History from "./screens/History";
-import Layout from "./screens/Layout";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useAccount } from "wagmi";
+import "./App.css";
+import BottomNavbar from "./components/BottomNavbar";
+import Navbar from "./components/Navbar";
+import Deligates from "./screens/Deligates";
+import Trusters from "./screens/Trusters";
+import Home from "./screens/Home";
+import Layout from "./screens/Layout";
+import { MiniPay } from "./screens/Login";
+import { QrScan } from "./screens/TrustAction";
 
 function App() {
   const { isConnected, address } = useAccount();
-  console.log(isConnected, address);
+  console.log({ isConnected }, { address });
   return (
     <BrowserRouter>
       {true ? (
@@ -44,18 +44,26 @@ function App() {
                     }
                   />
                   <Route
-                    path="/profile"
+                    path="/truster"
                     element={
                       <Layout>
-                        <ProfileCard />
+                        <Trusters />
                       </Layout>
                     }
                   />
-                  <Route
+                  {/* <Route
                     path="/history"
                     element={
                       <Layout>
                         <History />
+                      </Layout>
+                    }
+                  /> */}
+                  <Route
+                    path="/trust"
+                    element={
+                      <Layout>
+                        <QrScan />
                       </Layout>
                     }
                   />
