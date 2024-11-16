@@ -2,6 +2,5 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
-  "editor.fontSize": 16,
   "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace"
 }
