@@ -14,6 +14,7 @@ export default function WalletProvider({
     if (window && window.ethereum) {
       // User has a injected wallet
 
+      // @ts-expect-error
       if (window.ethereum.isMiniPay) {
         console.log("MiniPay detected");
         return true;

@@ -11,6 +11,7 @@ export default function Login() {
   if (window && window.ethereum) {
     // User has a injected wallet
 
+    // @ts-expect-error
     if (window.ethereum.isMiniPay) {
       isMiniPlay = true;
     }
