@@ -1,0 +1,52 @@
+import { CiUser as IconTrusters, CiHome as IconHome } from "react-icons/ci";
+import { FaChartArea as IconHistory } from "react-icons/fa";
+import { FaHandHoldingUsd as IconDeligates } from "react-icons/fa";
+import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
+
+const navbarItems = {
+  home: {
+    icon: <IconHome className="w-8 h-auto bg-white rounded-sm p-1" />,
+    label: "Home",
+    route: "/",
+  },
+  profile: {
+    icon: <IconTrusters className="w-8 h-auto bg-white rounded-sm p-1" />,
+    label: "Profile",
+    route: "/profile",
+  },
+  history: {
+    icon: <IconHistory className="w-8 h-auto bg-white rounded-sm p-1" />,
+    label: "History",
+    route: "/history",
+  },
+  deligates: {
+    icon: <IconDeligates className="w-8 h-auto bg-white rounded-sm p-1" />,
+    label: "Deligates",
+    route: "/deligates",
+  },
+};
+
+export default function BottomNavbar() {
+  return (
+    <div className="fixed bottom-0 left-0 right-0 flex justify-center ">
+      <div className="flex flex-col w-[440px] mx-auto gap-8 bg-[#00D09E] p-4 px-8 rounded-tl-3xl rounded-tr-3xl">
+        <div className="max-w-[440px] w-full flex justify-between items-center">
+          {Object.entries(navbarItems).map(([key, item]) => (
+            <Link
+              key={key}
+              to={item.route}
+              className={`flex flex-col items-center gap-1`}
+            >
+              {item.icon}
+              <span className="text-xs">{item.label}</span>
+            </Link>
+          ))}
+        </div>
+        <Button size={"lg"} className="bg-white text-black">
+          Trust Someone
+        </Button>
+      </div>
+    </div>
+  );
+}
