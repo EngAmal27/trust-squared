@@ -1,0 +1,29 @@
+type TrustUpdated @entity(immutable: true) {
+  id: Bytes!
+  truster: Bytes! # address
+  recipient: Bytes! # address
+  newTrust: BigInt! # int96
+  totalTrusteeInFlow: BigInt! # int96
+  totalTrusterOutFlow: BigInt! # int96
+  prevTrustScore: BigInt! # uint256
+  newTrustScore: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TrustLink @entity{
+  id: String!,
+  truster: Member! #address
+  trustee: Member! # address
+  flowRate: BigInt!
+}
+
+type Member @entity {
+  id: Bytes!
+  inFlowRate: BigInt!
+  outFlowRate: BigInt!
+  trustScore: BigInt!
+  trusters: [TrustLink!] @derivedFrom(field:"trustee")
+  trustees: [TrustLink!] @derivedFrom(field:"truster")
+}

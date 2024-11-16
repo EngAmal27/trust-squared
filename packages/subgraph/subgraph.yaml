@@ -1,0 +1,28 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: TrustPool
+    network: celo
+    source:
+      address: "0xdf1678797300F45cE221c18c6Dc5ae208a5040C5"
+      abi: TrustPool
+      startBlock: 28811137
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - TrustUpdated
+        - Member
+        - TrustLink
+      abis:
+        - name: TrustPool
+          file: ./abis/TrustPool.json
+      eventHandlers:
+        - event: TrustUpdated(address,address,int96,int96,int96,uint256,uint256)
+          handler: handleTrustUpdated
+      file: ./src/trust-pool.ts
