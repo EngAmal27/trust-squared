@@ -1,12 +1,9 @@
 import TrustAccount, { randomWalletAddress } from "@/components/TrustAccount";
-import {
-  useGetMemberTrustees,
-  useGetMemberTrusters,
-} from "@/hooks/queries/useGetMember";
-import { formatFlow, SAMPLE_ADDRESS, truncateAddress } from "@/utils";
+import { useGetMemberTrusters } from "@/hooks/queries/useGetMember";
+import { formatFlow, truncateAddress } from "@/utils";
 import Blockies from "react-blockies";
-import { formatUnits, parseEther } from "viem";
 import { CiLocationArrow1, CiUser } from "react-icons/ci";
+import { useAccount } from "wagmi";
 
 export const stats = {
   score: {
@@ -47,20 +44,20 @@ export function Stat({
 }
 
 export default function Trusters() {
+  const { address } = useAccount();
   // const [timePeriod] = useState<"day" | "week" | "month" | "year">("day");
   // const delegations = [
   //   { address: "0x123...456", name: "Alice", amount: "100 G$" },
   //   { address: "0x789...012", name: "Bob", amount: "50 G$" },
   // ];
 
-  const { data, status } = useGetMemberTrusters(SAMPLE_ADDRESS);
+  const { data, status } = useGetMemberTrusters(address ?? "");
 
-  const totalSupporters = data?.data.member.trusters.length;
-  const totalFlow = data?.data.member.trusters.reduce(
+  const totalSupporters = data?.data?.member?.trusters.length;
+  const totalFlow = data?.data?.member?.trusters.reduce(
     (acc, curr) => acc + Number(curr.flowRate),
     0
   );
-
 
   return (
     <div className="px-4">
@@ -94,7 +91,7 @@ export default function Trusters() {
 
       {/* List */}
       <div className="space-y-4">
-        {data?.data.member.trusters.map((t) => (
+        {data?.data?.member?.trusters.map((t) => (
           <div key={t.id} className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Blockies

@@ -15,7 +15,7 @@ function App() {
   console.log({ isConnected }, { address });
   return (
     <BrowserRouter>
-      {true ? (
+      {!isConnected ? (
         <MiniPay />
       ) : (
         <Routes>

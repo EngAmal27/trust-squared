@@ -12,8 +12,8 @@ export interface Member {
       trustScore: string;
       trustees: Trust[];
       trusters: Trust[];
-    };
-  };
+    } |null
+  }
 }
 
 export interface DetailsProps {

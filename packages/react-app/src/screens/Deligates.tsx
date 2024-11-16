@@ -1,10 +1,11 @@
 import TrustAccount, { randomWalletAddress } from "@/components/TrustAccount";
 import { useGetMemberTrustees } from "@/hooks/queries/useGetMember";
-import { formatFlow, SAMPLE_ADDRESS, truncateAddress } from "@/utils";
+import { formatFlow, truncateAddress } from "@/utils";
 import { useState } from "react";
 import Blockies from "react-blockies";
 import { CiLocationArrow1, CiUser } from "react-icons/ci";
 import { etherUnits, formatUnits } from "viem";
+import { useAccount } from "wagmi";
 
 export const stats = {
   score: {
@@ -45,10 +46,11 @@ export function Stat({
 }
 
 export default function History() {
-  const { data, status } = useGetMemberTrustees(SAMPLE_ADDRESS);
+  const { address } = useAccount();
+  const { data, status } = useGetMemberTrustees(address ?? "");
 
-  const totalDelegates = data?.data.member.trustees.length;
-  const totalFlow = data?.data.member.trustees.reduce(
+  const totalDelegates = data?.data?.member?.trustees.length;
+  const totalFlow = data?.data?.member?.trustees.reduce(
     (acc, curr) => acc + Number(curr.flowRate),
     0
   );
@@ -83,7 +85,7 @@ export default function History() {
 
       {/* List */}
       <div className="space-y-4">
-        {data?.data.member.trustees.map((t) => (
+        {data?.data?.member?.trustees.map((t) => (
           <div key={t.id} className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Blockies

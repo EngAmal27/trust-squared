@@ -45,7 +45,7 @@ export default function BottomNavbar() {
                 className="w-full h-8 rounded-sm p-0"
                 color="#36B82A"
               />
-              <span className="text-md   text-[#36B82A]">$200</span>
+              <span className="text-md   text-[#36B82A]">Trusters</span>
             </div>
           </Link>
 
@@ -54,7 +54,7 @@ export default function BottomNavbar() {
             style={{
               boxShadow: "0px 4px 4px 0px #00000040",
             }}
-            className="w-[90px] h-[90px] rounded-xl bg-[#36B82A4D] flex-grow flex items-center justify-center"
+            className="w-[90px] h-[90px] rounded-xl bg-[#36B82A4D] flex-grow flex items-center justify-center gap-1"
           >
             <img src={`/qrlogo.svg`} width={66} height={"auto"} alt="profile" />
           </Link>
@@ -66,12 +66,12 @@ export default function BottomNavbar() {
             }}
             className={`flex bg-[#36B82A4D] justify-end rounded-xl items-center flex-grow  px-2 `}
           >
-            <div className="flex  items-center p-2">
+            <div className="flex  items-center p-2 gap-1">
               <IconDeligates
                 className="w-full h-8 rounded-sm p-0"
                 color="#AC481E"
               />
-              <span className="text-md   text-[#AC481E]">$200</span>
+              <span className="text-md text-[#AC481E]">Deligates</span>
             </div>
             {/* <IconDeligates className="w-full h-14 rounded-sm p-1" color="#AC481E" />
             <span className="text-xl text-[#AC481E]">$200</span> */}

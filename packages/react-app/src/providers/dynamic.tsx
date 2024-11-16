@@ -23,6 +23,10 @@ export default function WalletProvider({
     return false;
   };
 
+  console.log("isMiniPay", isMiniPay());
+
+  
+
   return isMiniPay() ? (
     <MiniPayProvider queryClient={queryClient}>{children}</MiniPayProvider>
   ) : (
