@@ -48,3 +48,7 @@ export const formatScore = (rate: string) => {
 export const formatFlow = (flow: string) => {
   return (Number(formatUnits(BigInt(flow), 18)) * 2592000).toFixed(2) + " G$";
 };
+
+export function getAddressLink(address: string) {
+  return `https://explorer.superfluid.finance/celo/accounts/${address}?tab=tokens`;
+}

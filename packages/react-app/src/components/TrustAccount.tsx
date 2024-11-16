@@ -1,5 +1,7 @@
+import { getAddressLink } from "@/utils";
 import { useMemo } from "react";
 import Blockies from "react-blockies";
+import { Link } from "react-router-dom";
 
 interface ProfileCardProps {
   address: string;
@@ -27,9 +29,15 @@ export default function TrustAccount({ address, name = "" }: ProfileCardProps) {
 
       {/* Name and Wallet */}
       <div className="ml-4 flex flex-col">
-        <span className="font-medium text-lg">
+        <Link
+        
+          to={getAddressLink(address)}
+          className="font-medium text-lg underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {name || truncateAddress(address)}
-        </span>
+        </Link>
         <span className="text-sm text-gray-500 mt-1">
           {truncateAddress(address)}
         </span>
