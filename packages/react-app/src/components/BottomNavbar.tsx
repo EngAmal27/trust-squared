@@ -44,14 +44,15 @@ export default function BottomNavbar() {
             <span className="text-xl   text-[#36B82A]">$200</span>
           </Link>
 
-          <div
+          <Link
+            to={`/trust`}
             style={{
               boxShadow: "0px 4px 4px 0px #00000040",
             }}
             className="w-[90px] h-[90px] rounded-full bg-[#36B82A4D] flex-grow flex items-center justify-center"
           >
             <img src={`/qrlogo.svg`} alt="profile" />
-          </div>
+          </Link>
 
           <Link
             to={`/deligates`}
