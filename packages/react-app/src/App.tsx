@@ -7,6 +7,7 @@ import Home from "./screens/Home";
 import Deligates from "./screens/Deligates";
 import ProfileCard from "./components/ProfileCard";
 import History from "./screens/History";
+import Layout from "./screens/Layout";
 
 function App() {
   return (
@@ -23,10 +24,38 @@ function App() {
               <Navbar />
               <Routes>
                 {/* Add your other routes here */}
-                <Route path="/" element={<Home />} />
-                <Route path="/deligates" element={<Deligates />} />
-                <Route path="/profile" element={<ProfileCard />} />
-                <Route path="/history" element={<History />} />
+                <Route
+                  path="/"
+                  element={
+                    <Layout>
+                      <Home />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/deligates"
+                  element={
+                    <Layout>
+                      <Deligates />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <Layout>
+                      <ProfileCard />
+                    </Layout>
+                  }
+                />
+                <Route
+                  path="/history"
+                  element={
+                    <Layout>
+                      <History />
+                    </Layout>
+                  }
+                />
               </Routes>
               <BottomNavbar />
             </>
