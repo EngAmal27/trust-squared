@@ -11,7 +11,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { http } from "viem";
 import { celo, mainnet } from "viem/chains";
 import { createConfig, WagmiProvider } from "wagmi";
-import { Toaster } from "@/components/ui/toaster"
 
 const config = createConfig({
   chains: [mainnet, celo],

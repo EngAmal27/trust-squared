@@ -1,8 +1,6 @@
 import TrustAccount, { randomWalletAddress } from "@/components/TrustAccount";
 import { QRCodeSVG } from "qrcode.react";
 import { useVerifier } from "@/hooks/queries/useVerifier";
-import { CiUser, CiLocationArrow1 } from "react-icons/ci";
-import { useAccount } from "wagmi";
 
 export default function Home() {
 
