@@ -1,8 +1,10 @@
 import TrustAccount from "@/components/TrustAccount";
 import { useGetMemberTrustees } from "@/hooks/queries/useGetMember";
-import { formatFlow, truncateAddress } from "@/utils";
+import { formatFlow, getAddressLink, truncateAddress } from "@/utils";
+import { ExternalLink } from "lucide-react";
 import Blockies from "react-blockies";
 import { CiLocationArrow1, CiUser } from "react-icons/ci";
+import { Link } from "react-router-dom";
 import { useAccount } from "wagmi";
 
 export const stats = {
@@ -95,7 +97,14 @@ export default function History() {
               <div>
                 {/* <div className="font-medium">{trustee.name}</div> */}
                 <div className="text-sm text-gray-500">
-                  {truncateAddress(t.id)}
+                  <Link
+                    to={getAddressLink(t.id)}
+                    className="font-medium text-lg underline flex gap-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {truncateAddress(t.id)} <ExternalLink color="black" />
+                  </Link>
                 </div>
               </div>
             </div>
