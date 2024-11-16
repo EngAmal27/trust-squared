@@ -12,10 +12,10 @@ import { QrScan } from "./screens/TrustAction";
 
 function App() {
   const { isConnected, address } = useAccount();
-  console.log(isConnected, address);
+  console.log({isConnected}, {address});
   return (
     <BrowserRouter>
-      {false ? (
+      {!isConnected ? (
         <Login />
       ) : (
         <Routes>
