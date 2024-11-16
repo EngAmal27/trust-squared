@@ -8,6 +8,9 @@ import { QRCodeSVG } from "qrcode.react";
 import { useAccount } from "wagmi";
 import { useVerifiedIdentities } from "@/hooks/useVerifiedIdentities";
 import { BadgeCheck } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useEffect } from "react";
+import { POOL_CONTRACT } from "@/env";
 
 // const formatScore = (rate: string) => {
 //     const score = ((Number(rate) / 1e18) * 1e5).toFixed(2);
@@ -15,6 +18,19 @@ import { BadgeCheck } from "lucide-react";
 //   };
 
 export default function Home() {
+
+  console.log("home", POOL_CONTRACT);
+
+  const { toast } = useToast();
+
+  useEffect(() => {
+    console.log("toast");
+    toast({
+      title: "Hello",
+      description: "This is a toast",
+    });
+  }, []);
+
   //this will try to get user verified by the backened
   const verifierResult = useVerifier();
   const account = useAccount()

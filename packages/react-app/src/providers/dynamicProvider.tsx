@@ -2,7 +2,8 @@ import { AlgorandWalletConnectors } from "@dynamic-labs/algorand";
 import { CosmosWalletConnectors } from "@dynamic-labs/cosmos";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import {
-  DynamicContextProvider
+  DynamicContextProvider,
+  DynamicWidget
 } from "@dynamic-labs/sdk-react-core";
 import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -40,7 +41,7 @@ export default function DynamicProvider({
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
           <DynamicWagmiConnector>
-            {/* <DynamicWidget /> */}
+            <DynamicWidget />
             {children}
           </DynamicWagmiConnector>
         </QueryClientProvider>
