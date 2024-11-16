@@ -26,8 +26,9 @@ export default function Home() {
         <TrustAccount address={data?.data.member.id || ""} />
 
         <QRCodeSVG
-          className=" rounded-lg p-2 shadow-xl"
-          value={randomWalletAddress()}
+          bgColor="transparent"
+          className="rounded-lg"
+          value={SAMPLE_ADDRESS}
           size={200}
           level="H"
           includeMargin={true}
