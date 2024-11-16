@@ -64,6 +64,6 @@ export default function ProfileCard({
 }
 
 // Helper function to truncate address
-function truncateAddress(address: string): string {
+export function truncateAddress(address: string): string {
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }

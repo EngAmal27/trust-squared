@@ -1,15 +1,13 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useAccount } from "wagmi";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./screens/Login";
-import Navbar from "./components/Navbar";
 import BottomNavbar from "./components/BottomNavbar";
-import Home from "./screens/Home";
+import Navbar from "./components/Navbar";
 import Deligates from "./screens/Deligates";
-import ProfileCard from "./components/ProfileCard";
 import History from "./screens/History";
+import Home from "./screens/Home";
 import Layout from "./screens/Layout";
-import { useAccount } from "wagmi"; 
-import TrustAccount from "./components/TrustAccount";
+import Login from "./screens/Login";
 import { QrScan } from "./screens/TrustAction";
 
 function App() {
@@ -46,21 +44,21 @@ function App() {
                     }
                   />
                   <Route
-                    path="/profile"
-                    element={
-                      <Layout>
-                        <ProfileCard />
-                      </Layout>
-                    }
-                  />
-                  <Route
-                    path="/history"
+                    path="/truster"
                     element={
                       <Layout>
                         <History />
                       </Layout>
                     }
                   />
+                  {/* <Route
+                    path="/history"
+                    element={
+                      <Layout>
+                        <History />
+                      </Layout>
+                    }
+                  /> */}
                   <Route
                     path="/trust"
                     element={

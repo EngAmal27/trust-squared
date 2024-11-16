@@ -2,6 +2,11 @@ import { stats } from "./screens/History";
 
 type Stat = (typeof stats)[keyof typeof stats];
 
+// Helper function to truncate address
+export function truncateAddress(address: string): string {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`;
+}
+
 export function calculateStats(
   timePeriod: "day" | "week" | "month" | "year",
   stat: Stat
