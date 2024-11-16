@@ -1,8 +1,11 @@
 import TrustAccount, { randomWalletAddress } from "@/components/TrustAccount";
-import { truncateAddress } from "@/utils";
+import { useGetMemberTrustees } from "@/hooks/queries/useGetMember";
+import { formatFlow, SAMPLE_ADDRESS, truncateAddress } from "@/utils";
 import { useState } from "react";
 import Blockies from "react-blockies";
 import { CiLocationArrow1, CiUser } from "react-icons/ci";
+import { etherUnits, formatUnits } from "viem";
+
 export const stats = {
   score: {
     icon: <CiUser className="h-8 w-auto" />,
@@ -42,11 +45,14 @@ export function Stat({
 }
 
 export default function History() {
-  const [timePeriod] = useState<"day" | "week" | "month" | "year">("day");
-  const delegations = [
-    { address: "0x123...456", name: "Alice", amount: "100 G$" },
-    { address: "0x789...012", name: "Bob", amount: "50 G$" },
-  ];
+  const { data, status } = useGetMemberTrustees(SAMPLE_ADDRESS);
+
+  const totalDelegates = data?.data.member.trustees.length;
+  const totalFlow = data?.data.member.trustees.reduce(
+    (acc, curr) => acc + Number(curr.flowRate),
+    0
+  );
+
   return (
     <div className="px-4">
       <div className="py-2">
@@ -56,13 +62,15 @@ export default function History() {
           <div className="flex items-end gap-4">
             <CiUser className="h-8 w-auto" />
             <div className="font-lg ">{"Total Delegates"}</div>
-            <div className="text-xl text-[#36B82A]">$7,783.00</div>
+            <div className="text-xl text-[#36B82A]">{totalDelegates}</div>
           </div>
 
           <div className="flex items-center gap-4">
             <CiLocationArrow1 className="h-8 w-auto" />
             <div className="font-lg ">{"Total Outflow"}</div>
-            <div className="text-xl text-[#36B82A]">{15}</div>
+            <div className="text-xl text-[#36B82A]">
+              {totalFlow ? formatFlow(totalFlow.toString()) : "0"}
+            </div>
           </div>
         </div>
       </div>
@@ -75,26 +83,25 @@ export default function History() {
 
       {/* List */}
       <div className="space-y-4">
-        {delegations.map((delegation) => (
-          <div
-            key={delegation.address}
-            className="flex items-center justify-between"
-          >
+        {data?.data.member.trustees.map((t) => (
+          <div key={t.id} className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Blockies
-                seed={delegation.address.toLowerCase()}
+                seed={t.id.toLowerCase()}
                 size={8}
                 scale={4}
                 className="rounded-full"
               />
               <div>
-                <div className="font-medium">{delegation.name}</div>
+                {/* <div className="font-medium">{trustee.name}</div> */}
                 <div className="text-sm text-gray-500">
-                  {truncateAddress(delegation.address)}
+                  {truncateAddress(t.id)}
                 </div>
               </div>
             </div>
-            <div className="font-medium">{delegation.amount.toString()}</div>
+            <div className="font-medium">
+              {formatFlow(t.flowRate.toString())}
+            </div>
           </div>
         ))}
       </div>

@@ -4,7 +4,7 @@ import "./App.css";
 import BottomNavbar from "./components/BottomNavbar";
 import Navbar from "./components/Navbar";
 import Deligates from "./screens/Deligates";
-import History from "./screens/History";
+import Trusters from "./screens/Trusters";
 import Home from "./screens/Home";
 import Layout from "./screens/Layout";
 import Login from "./screens/Login";
@@ -47,7 +47,7 @@ function App() {
                     path="/truster"
                     element={
                       <Layout>
-                        <History />
+                        <Trusters />
                       </Layout>
                     }
                   />

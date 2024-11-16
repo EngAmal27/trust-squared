@@ -1,18 +1,29 @@
 import TrustAccount, { randomWalletAddress } from "@/components/TrustAccount";
 import { QRCodeSVG } from "qrcode.react";
 import { useVerifier } from "@/hooks/queries/useVerifier";
+import { useGetMember } from "@/hooks/queries/useGetMember";
+import { formatScore, SAMPLE_ADDRESS } from "@/utils";
+import { useBalance } from "wagmi";
 
 export default function Home() {
-
   //this will try to get user verified by the backened
-  const verifierResult = useVerifier()
+  const verifierResult = useVerifier();
+
+  const { data, status } = useGetMember(SAMPLE_ADDRESS);
+
+  if (status === "pending") return <div>Loading...</div>;
+
+  if (status === "error") return <div>Error</div>;
+
+  if (!data) return <div>No data</div>;
+
   return (
     <div className="flex flex-col w-full items-center">
       <div
         style={{ boxShadow: "0px 4px 4px 0px #00000040" }}
         className="bg-[#DFF7E2] rounded-3xl p-8 flex flex-col items-center gap-4"
       >
-        <TrustAccount address={randomWalletAddress()} />
+        <TrustAccount address={data?.data.member.id || ""} />
 
         <QRCodeSVG
           className=" rounded-lg p-2 shadow-xl"
@@ -25,7 +36,9 @@ export default function Home() {
         <div className="py-4 flex gap-4">
           <div className="flex justify-between items-center flex-col">
             <span>Trust Score</span>
-            <span className=" text-xl text-[#36B82A]">10/10</span>
+            <span className=" text-xl text-[#36B82A]">
+              {formatScore(data?.data.member.trustScore || "")}
+            </span>
           </div>
 
           <div className="flex justify-between items-center flex-col">
