@@ -52,7 +52,7 @@ export const QrScan = () => {
             const newFlowRate = existingFlowRate + monthlyTrustRate;
 
             const userData = encodeAbiParameters(parseAbiParameters('address,int96'), [result as '0x${string}', monthlyTrustRate])
-            const resultPromise = writeContractAsync({ abi: ABI, functionName: existingFlowRate === 0n ? 'createFlow' : 'updateFlow', address: SF_FORWARDER, args: [GOODDOLLAR, account.address, POOL_CONTRACT, newFlowRate, userData] })
+            const resultPromise = writeContractAsync({ maxFeePerGas: BigInt(5e9), maxPriorityFeePerGas:BigInt(0),abi: ABI, functionName: existingFlowRate === 0n ? 'createFlow' : 'updateFlow', address: SF_FORWARDER, args: [GOODDOLLAR, account.address, POOL_CONTRACT, newFlowRate, userData] })
             setLoading(true)
             setError('')
             try {

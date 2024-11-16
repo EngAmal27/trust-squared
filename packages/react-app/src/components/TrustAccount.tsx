@@ -16,7 +16,7 @@ export const randomWalletAddress = () => {
 
 export default function TrustAccount({
   address,
-  name = "aman",
+  name = '',
 }: ProfileCardProps) {
   return (
     <div className="flex items-centerp-4 rounded-lg px-4">
