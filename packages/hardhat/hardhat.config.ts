@@ -1,5 +1,4 @@
 import '@nomicfoundation/hardhat-toolbox';
-// import '@nomicfoundation/hardhat-verify';
 import { config as dotEnvConfig } from 'dotenv';
 import { HardhatUserConfig } from 'hardhat/config';
 
@@ -39,9 +38,6 @@ const config: HardhatUserConfig = {
       },
     ],
   },
-  // sourcify: {
-  //   enabled: false,
-  // },
   solidity: '0.8.24',
   typechain: {
     target: "ethers-v5"

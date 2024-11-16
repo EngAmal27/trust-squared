@@ -1,10 +1,12 @@
 import TrustAccount from "@/components/TrustAccount";
 import { useGetMember } from "@/hooks/queries/useGetMember";
+import { useVerifier } from "@/hooks/queries/useVerifier";
 import { useBalanceStream } from "@/hooks/useBalanceStream";
 import { formatScore } from "@/utils";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { QRCodeSVG } from "qrcode.react";
 import { useAccount } from "wagmi";
+import { useVerifiedIdentities } from "@/hooks/useVerifiedIdentities";
 
 // const formatScore = (rate: string) => {
 //     const score = ((Number(rate) / 1e18) * 1e5).toFixed(2);
@@ -13,12 +15,16 @@ import { useAccount } from "wagmi";
 
 export default function Home() {
   //this will try to get user verified by the backened
-  // const verifierResult = useVerifier();
+  const verifierResult = useVerifier();
 
   const { address } = useAccount();
 
-  const account = useAccount();
-  const { data, status } = useGetMember(account.address as string);
+    const account = useAccount()
+  const { data } = useGetMember(account.address as string)
+  // console.log({data, addr: account.address})
+  const identities = useVerifiedIdentities(account.address)
+  // console.log({identities})
+
   // @ts-ignore
   const balance = useBalanceStream(
     account.address,

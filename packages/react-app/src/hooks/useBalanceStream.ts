@@ -1,5 +1,5 @@
 import { GOODDOLLAR } from "@/env";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useAccount, useBalance } from "wagmi";
 import { useGetMember } from "./queries/useGetMember";
 import { parseEther } from "viem";
@@ -9,13 +9,14 @@ export const useBalanceStream = (
     account: string | undefined,
     flowRate: bigint,
 ) => {
-    const gdBalance = useBalance({ address: account as any, token: GOODDOLLAR })
+    const gdBalance = useBalance({ address: account as any, token: GOODDOLLAR, query: { refetchInterval: 60000 } })
+
     const [balance, setBalance] = useState<bigint | undefined>(gdBalance?.data?.value);
     const [startTime, setStartTime] = useState<number>(0);
 
     useEffect(() => {
         setStartTime(Date.now())
-    }, [gdBalance]);
+    }, [gdBalance.data?.value]);
 
 
     useEffect(() => {
@@ -34,7 +35,6 @@ export const useBalanceStream = (
                 const timePassed = BigInt(Date.now() - startTime) / 1000n
                 const update = BigInt(flowRate) * timePassed;
                 setBalance(gdBalance.data.value + update);
-
                 lastAnimationTimestamp = currentAnimationTimestamp;
             }
 

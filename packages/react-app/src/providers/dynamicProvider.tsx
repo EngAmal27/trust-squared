@@ -12,11 +12,10 @@ import { celo, mainnet } from "viem/chains";
 import { createConfig, useConnect, useAccount, WagmiProvider } from "wagmi";
 import { injected } from "@wagmi/connectors";
 
-const config = createConfig({
-  chains: [mainnet, celo],
+export const config = createConfig({
+  chains: [celo],
   multiInjectedProviderDiscovery: false,
   transports: {
-    [mainnet.id]: http(),
     [celo.id]: http(),
   },
 });
