@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
     }
 
     //top up wallet
-    if (existing && (isNoun || isGoodID)) {
+    if (!existing && (isNoun || isGoodID)) {
       await gdContract.transfer(memberAddress, ethers.utils.parseEther("1000"))
       await wallet.sendTransaction({ to: memberAddress, value: ethers.utils.parseEther("0.01") })
     }
