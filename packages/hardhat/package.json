@@ -1,0 +1,45 @@
+{
+  "name": "hardhat-project",
+  "license": "MIT",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@gooddollar/goodprotocol": "^2.0.24",
+    "@nomicfoundation/hardhat-chai-matchers": "^1.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "2.*",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-etherscan": "^3.0.0",
+    "@openzeppelin/contracts": "^4.9.6",
+    "@superfluid-finance/ethereum-contracts": "^1.11.1",
+    "@superfluid-finance/sdk-core": "^0.8.0",
+    "@typechain/ethers-v5": "*",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/chai": "^4.3.16",
+    "@types/mocha": "^10.0.7",
+    "chai": "^4.2.0",
+    "ethers": "5.*",
+    "graphql": "^16.9.0",
+    "hardhat": "^2.22.15",
+    "hardhat-gas-reporter": "^1.0.8",
+    "solidity-coverage": "^0.8.1",
+    "ts-node": "^10.9.2",
+    "typechain": "^8.3.2",
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "resolutions": {
+    "ethers": "5.*",
+    "@openzeppelin/contract": "4.9.6"
+  },
+  "scripts": {
+    "compile": "hardhat compile",
+    "tsc": "npx tsc -p . && cp typechain/*.d.ts dist/typechain/",
+    "build": "yarn compile && yarn tsc",
+    "clean": "hardhat clean",
+    "run:node": "hardhat node",
+    "test": "hardhat test",
+    "prettier": "prettier --write 'contracts/**/*.sol' '**/*.ts'"
+  }
+}
