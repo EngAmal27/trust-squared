@@ -9,6 +9,8 @@ import ProfileCard from "./components/ProfileCard";
 import History from "./screens/History";
 import Layout from "./screens/Layout";
 import { useAccount } from "wagmi"; 
+import TrustAccount from "./components/TrustAccount";
+import { QrScan } from "./screens/TrustAction";
 
 function App() {
   const { isConnected, address } = useAccount();
@@ -56,6 +58,14 @@ function App() {
                     element={
                       <Layout>
                         <History />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/trust"
+                    element={
+                      <Layout>
+                        <QrScan />
                       </Layout>
                     }
                   />
