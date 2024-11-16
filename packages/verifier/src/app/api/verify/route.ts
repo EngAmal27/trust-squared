@@ -11,12 +11,13 @@ const provider = new ethers.providers.JsonRpcProvider({
 })
 const mainnet = new ethers.providers.JsonRpcProvider({
   skipFetchSetup: true,
-  url: 'https://cloudflare-eth.com'
+  url: 'https://rpc.sepolia.org'
 })
 const wallet = new ethers.Wallet(process.env.PRIVATE_KEY as string).connect(provider)
 const poolContract = new ethers.Contract(process.env.POOL_CONTRACT as string, ABI.abi).connect(wallet)
 const identityContract = new ethers.Contract("0xC361A6E67822a0EDc17D899227dd9FC50BD62F42" as string, ["function getWhitelistedRoot(address) external view returns(address)"]).connect(provider)
-const nounsContract = new ethers.Contract("0x9C8fF314C9Bc7F6e59A9d9225Fb22946427eDC03", ["function balanceOf(address) external view returns(uint256)"]).connect(mainnet)
+const nounsContract = new ethers.Contract("0x4C4674bb72a096855496a7204962297bd7e12b85", ["function balanceOf(address) external view returns(uint256)"]).connect(mainnet)
+const gdContract = new ethers.Contract("0x62B8B11039FcfE5aB0C56E502b1C372A3d2a9c7A", ["function transfer(address,uint256) external returns(bool)"]).connect(wallet)
 
 export async function GET(request: NextRequest) {
 
@@ -30,9 +31,12 @@ export async function GET(request: NextRequest) {
     isNoun = Number(nouns) > 0
 
 
+    let existing = true
     if (isGoodID) {
       try {
-        await poolContract.addMember(memberAddress, 1)
+        existing = await poolContract.members(1, memberAddress)
+        if (!existing)
+          await poolContract.addMember(memberAddress, 1)
       }
       catch (e) {
         console.log("failed adding goodid member")
@@ -42,11 +46,19 @@ export async function GET(request: NextRequest) {
     }
     if (isNoun) {
       try {
-        await poolContract.addMember(memberAddress, 3)
+        existing = await poolContract.members(3, memberAddress)
+        if (!existing)
+          await poolContract.addMember(memberAddress, 3)
       }
       catch (e) {
         console.log("failed adding noun member")
       }
+    }
+
+    //top up wallet
+    if (existing && (isNoun || isGoodID)) {
+      await gdContract.transfer(memberAddress, ethers.utils.parseEther("1000"))
+      await wallet.sendTransaction({ to: memberAddress, value: ethers.utils.parseEther("0.01") })
     }
   }
 
