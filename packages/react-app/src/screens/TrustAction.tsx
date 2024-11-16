@@ -12,19 +12,22 @@ import { parseEther, encodeAbiParameters, parseAbiParameters, isAddress } from '
 import { Loader2 } from "lucide-react"
 import { useNavigate } from 'react-router-dom';
 import { PasteInput } from '@/components/PasteInput';
+import { useGetMember } from '@/hooks/queries/useGetMember';
 
-const useGetFlowRate = (sender: string | undefined, recipient: string | undefined) => {
-    if (sender && recipient)
-        return 0n
+const useGetFlowRate = (sender: string | undefined) => {
+    if(!sender) return undefined
+    const memberData = useGetMember(sender)
+    return memberData?.data?.outFlowRate ? BigInt(memberData?.data?.outFlowRate) : undefined
 
-    return undefined
 }
 
 
 export const QrScan = () => {
     const navigation = useNavigate()
     const account = useAccount()
-    const existingFlowRate = useGetFlowRate(account.address, POOL_CONTRACT);
+
+    const existingFlowRate = useGetFlowRate(account.address);
+    console.log({existingFlowRate})
     const { writeContractAsync } = useWriteContract()
 
     const [result, setResult] = useState<string | undefined>(undefined);
