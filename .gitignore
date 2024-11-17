@@ -1,5 +1,6 @@
 node_modules
-.env
+*.env
+!.env.example
 packages/*/node_modules
 packages/*/dist
 packages/*/.next
@@ -47,3 +48,4 @@ yarn.lock
 package-lock.json
 packages/*/yarn.lock
 packages/*/package-lock.json
+.vscode/settings.json

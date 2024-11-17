@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { MdContentPaste } from "react-icons/md";
+
 
 export const PasteInput = ({onChange}: {onChange:(text:string) => any}) => {
     const [text, setText] = useState('')
@@ -10,22 +12,28 @@ export const PasteInput = ({onChange}: {onChange:(text:string) => any}) => {
     }
     
     return (
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-            <div className="flex items-center space-x-2">
-                <Input type="text" id="text" placeholder="Trustee Wallet Address" value={text} onChange={e => cb(e.currentTarget.value)}/>
-                <Button
-                    type="button"
-                    onClick={async () => {
-                        const text = await navigator.clipboard.readText()
-                        cb(text)
-                    }}
-                >
-                    <CopyIcon className="h-4 w-4" />
-                    <span className="sr-only">Paste</span>
-                </Button>
-            </div>
+      <div className="grid w-full max-w-sm items-center gap-1.5">
+        <div className="flex items-center space-x-2">
+          <Input
+            type="text"
+            id="text"
+            placeholder="Trustee Wallet Address"
+            value={text}
+            onChange={(e) => cb(e.currentTarget.value)}
+          />
+          <Button
+            type="button"
+            onClick={async () => {
+              const text = await navigator.clipboard.readText();
+              cb(text);
+            }}
+          >
+            <MdContentPaste className="h-4 w-4" />
+            <span className="sr-only">Paste</span>
+          </Button>
         </div>
-    )
+      </div>
+    );
 }
 
 function CopyIcon(props: any) {

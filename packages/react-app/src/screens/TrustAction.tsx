@@ -17,15 +17,20 @@ import { Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { PasteInput } from "@/components/PasteInput";
 import { useGetMember } from "@/hooks/queries/useGetMember";
+import { truncateAddress } from "@/utils";
 
+// @ts-expect-error
+const isMiniPay = window?.ethereum?.isMiniPay;
+const gasOpts = isMiniPay ? {} : {
+  maxFeePerGas: BigInt(5e9),
+  maxPriorityFeePerGas: BigInt(0)
+}
+      
 const useGetFlowRate = (sender: string | undefined) => {
   if (!sender) return undefined;
   const memberData = useGetMember(sender);
   // @ts-ignore
-  return memberData?.data?.outFlowRate
-    ? // @ts-ignore
-      BigInt(memberData?.data?.outFlowRate)
-    : undefined;
+  return memberData.status === "success" ? BigInt(memberData.data?.data?.outFlowRate || 0) : undefined
 };
 
 export const QrScan = () => {
@@ -63,8 +68,7 @@ export const QrScan = () => {
         [result as "0x${string}", monthlyTrustRate]
       );
       const resultPromise = writeContractAsync({
-        maxFeePerGas: BigInt(5e9),
-        maxPriorityFeePerGas: BigInt(0),
+        ...gasOpts,
         abi: ABI,
         functionName: existingFlowRate === 0n ? "createFlow" : "updateFlow",
         address: SF_FORWARDER,
@@ -86,6 +90,7 @@ export const QrScan = () => {
         });
         navigation("/");
       } catch (e: any) {
+        console.log({ e })
         setLoading(false);
         toast({
           title: "Transaction failed",
@@ -104,8 +109,8 @@ export const QrScan = () => {
       "Trust"
     );
     return (
-      <div>
-        <div>{result}</div>
+      <div className="flex flex-col gap-4 justify-center items-start">
+        <div>{truncateAddress(result || "")}</div>
         <Input
           type="number"
           name="amount"
@@ -118,12 +123,13 @@ export const QrScan = () => {
         </Button>
       </div>
     );
-  } else
+  } else {
     return (
-      <div>
+      <div className="flex flex-col gap-4 justify-center items-center">
         <Scanner onScan={handleScan} />
         <PasteInput onChange={(text: string) => setResult(text)} />
         {/* <div>Trustee Address:{result}</div> */}
       </div>
     );
+  }
 };

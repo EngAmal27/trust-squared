@@ -3,16 +3,23 @@ import { Framework } from '@superfluid-finance/sdk-core';
 import { TrustPool } from '../typechain-types';
 import { ethers, network } from 'hardhat';
 
+const trustpool = "0x559Fc954873E175Ad8e0334cad4b80CB6D9f1A99"
 const add = async () => {
-    const trustpool = "0xdf1678797300F45cE221c18c6Dc5ae208a5040C5"
 
     const pool = await ethers.getContractAt("TrustPool", trustpool);
     await pool.addMember("0x6d25941a5ac05bcc2245b20c6d45c5de0ace7fe5", 1);
+    await pool.addMember("0xE1b92902d47c00155fFb159155354F49f60Ba87d", 1);
+    await pool.addMember("0xEE0eD5B7756A3ee8e01C0D5e7b707DB2794900ee", 1);
+    await pool.addMember("0xDe348c7Ccd3060Eb7911c5fF9Dd4c93bC8D34B8F", 1);
+    await pool.addMember("0x2CeADe86A04e474F3cf9BD87208514d818010627", 1);
+    await pool.addMember("0x4F7c20357D0e9e51a90FCf4E40950453D5a591ae", 1);
+    await pool.addMember("0x80617169feA613ea7eD32f5ba5Cbb08548FB0019", 1);
+
+
 }
 const stream = async () => {
     const signers = await ethers.getSigners()
     const senderSigner = signers[0]
-    const trustpool = "0xdf1678797300F45cE221c18c6Dc5ae208a5040C5"
     const trustee = "0xA48840D89a761502A4a7d995c74f3864D651A87F"
 
 
@@ -38,3 +45,4 @@ const stream = async () => {
 
 }
 add()
+// stream()

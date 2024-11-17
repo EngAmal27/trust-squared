@@ -8,6 +8,7 @@ import Layout from "./screens/Layout";
 import Login from "./screens/Login";
 import { QrScan } from "./screens/TrustAction";
 import Trusters from "./screens/Trusters";
+import { useIsLoggedIn } from "@dynamic-labs/sdk-react-core";
 
 import { usePrivy } from "@privy-io/react-auth";
 
