@@ -93,11 +93,13 @@ export default function Trusters() {
 
       {/* List */}
       <div className="space-y-4">
-        {data?.data?.member?.trusters.map((t) => (
+        {data?.data?.member?.trusters.map((t) => {
+          const account = t.id.split("_")[0]
+          return (
           <div key={t.id} className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Blockies
-                seed={t.id.toLowerCase()}
+                seed={account.toLowerCase()}
                 size={8}
                 scale={4}
                 className="rounded-full"
@@ -106,12 +108,12 @@ export default function Trusters() {
                 {/* <div className="font-medium">{trustee.name}</div> */}
                 <div className="text-sm text-gray-500">
                   <Link
-                    to={getAddressLink(t.id)}
+                    to={getAddressLink(account)}
                     className="font-medium text-lg underline flex gap-2"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {truncateAddress(t.id)} <ExternalLink color="black" />
+                    {truncateAddress(account)} <ExternalLink color="black" />
                   </Link>
                 </div>
               </div>
@@ -120,7 +122,7 @@ export default function Trusters() {
               {formatFlow(t.flowRate.toString())}
             </div>
           </div>
-        ))}
+        )})}
       </div>
     </div>
   );
