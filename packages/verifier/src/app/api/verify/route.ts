@@ -33,31 +33,28 @@ export async function GET(request: NextRequest) {
 
 
     let existing = true
-    if (isGoodID) {
-      try {
-        existing = await poolContract.members(1, memberAddress)
-        if (!existing)
-          await poolContract.addMember(memberAddress, 1)
-      }
-      catch (e) {
-        console.log("failed adding goodid member", e)
-      }
-
-
+    try {
+      existing = await poolContract.members(1, memberAddress)
+      if (!existing && isGoodID)
+        await poolContract.addMember(memberAddress, 1)
     }
-    if (isNoun) {
-      try {
-        existing = await poolContract.members(3, memberAddress)
-        if (!existing)
-          await poolContract.addMember(memberAddress, 3)
-      }
-      catch (e: any) {
-        console.log("failed adding noun member", e.message)
-      }
+    catch (e) {
+      console.log("failed adding goodid member", e)
+    }
+
+
+
+    try {
+      existing = await poolContract.members(3, memberAddress)
+      if (!existing && isNoun)
+        await poolContract.addMember(memberAddress, 3)
+    }
+    catch (e: any) {
+      console.log("failed adding noun member", e.message)
     }
 
     //top up wallet
-    if ((isNoun || isGoodID)) {
+    if ((isNoun || isGoodID) || existing) {
       try {
 
         const gdBalance = await gdContract.balanceOf(memberAddress)
