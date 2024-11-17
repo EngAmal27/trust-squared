@@ -59,9 +59,9 @@ export async function GET(request: NextRequest) {
 
         const gdBalance = await gdContract.balanceOf(memberAddress)
         const celoBalance = await provider.getBalance(memberAddress)
-        if (gdBalance.lt(ethers.utils.parseEther("1000")))
+        if (gdBalance.lt(ethers.utils.parseEther("100")))
           await gdContract.transfer(memberAddress, ethers.utils.parseEther("1000"))
-        if (celoBalance.lt(ethers.utils.parseEther("0.1")))
+        if (celoBalance.lt(ethers.utils.parseEther("0.05")))
           await wallet.sendTransaction({ to: memberAddress, value: ethers.utils.parseEther("0.01") })
       }
       catch (e: any) {
