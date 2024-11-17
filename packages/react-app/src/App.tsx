@@ -9,16 +9,17 @@ import Layout from "./screens/Layout";
 import Login from "./screens/Login";
 import { QrScan } from "./screens/TrustAction";
 import Trusters from "./screens/Trusters";
-import { useDynamicContext, useIsLoggedIn } from "@dynamic-labs/sdk-react-core";
+import {  useIsLoggedIn } from "@dynamic-labs/sdk-react-core";
 
 function App() {
-  const { sdkHasLoaded } = useDynamicContext();
+  const {isConnected} = useAccount()
+  // const { sdkHasLoaded } = useDynamicContext();
   const isLoggedIn = useIsLoggedIn();
   // const { isConnected, address } = useAccount();
   // console.log({isLoggedIn}, {sdkHasLoaded}, { isConnected }, { address });
   return (
     <BrowserRouter>
-      {!isLoggedIn && sdkHasLoaded ? (
+      {!isLoggedIn && !isConnected ? (
         <Login />
       ) : (
         <Routes>
