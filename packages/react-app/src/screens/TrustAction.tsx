@@ -84,6 +84,7 @@ export const QrScan = () => {
         });
         navigation("/");
       } catch (e: any) {
+        console.log({e})
         setLoading(false);
         toast({
           title: "Transaction failed",

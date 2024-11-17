@@ -19,6 +19,7 @@ const identityContract = new ethers.Contract("0xC361A6E67822a0EDc17D899227dd9FC5
 const nounsContract = new ethers.Contract("0x4C4674bb72a096855496a7204962297bd7e12b85", ["function balanceOf(address) external view returns(uint256)"]).connect(mainnet)
 const gdContract = new ethers.Contract("0x62B8B11039FcfE5aB0C56E502b1C372A3d2a9c7A", ["function transfer(address,uint256) external returns(bool)", "function balanceOf(address) external view returns(uint256)"]).connect(wallet)
 
+console.log("Verifier address:", wallet.address)
 export async function GET(request: NextRequest) {
 
   const memberAddress = request.nextUrl.searchParams.get("address")
@@ -50,19 +51,25 @@ export async function GET(request: NextRequest) {
         if (!existing)
           await poolContract.addMember(memberAddress, 3)
       }
-      catch (e) {
-        console.log("failed adding noun member", e)
+      catch (e: any) {
+        console.log("failed adding noun member", e.message)
       }
     }
 
     //top up wallet
     if ((isNoun || isGoodID)) {
-      const gdBalance = await gdContract.balanceOf(memberAddress)
-      const celoBalance = await provider.getBalance(memberAddress)
-      if (gdBalance.lt(ethers.utils.parseEther("1000")))
-        await gdContract.transfer(memberAddress, ethers.utils.parseEther("1000"))
-      if (celoBalance.lt(ethers.utils.parseEther("0.1")))
-        await wallet.sendTransaction({ to: memberAddress, value: ethers.utils.parseEther("0.01") })
+      try {
+
+        const gdBalance = await gdContract.balanceOf(memberAddress)
+        const celoBalance = await provider.getBalance(memberAddress)
+        if (gdBalance.lt(ethers.utils.parseEther("1000")))
+          await gdContract.transfer(memberAddress, ethers.utils.parseEther("1000"))
+        if (celoBalance.lt(ethers.utils.parseEther("0.1")))
+          await wallet.sendTransaction({ to: memberAddress, value: ethers.utils.parseEther("0.01") })
+      }
+      catch (e: any) {
+        console.log("failed topping wallt", e.message)
+      }
     }
   }
 
