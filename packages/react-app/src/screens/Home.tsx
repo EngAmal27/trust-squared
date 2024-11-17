@@ -1,5 +1,4 @@
 import TrustAccount from "@/components/TrustAccount";
-import { POOL_CONTRACT } from "@/env";
 import { useGetMember } from "@/hooks/queries/useGetMember";
 import { useVerifier } from "@/hooks/queries/useVerifier";
 import { useBalanceStream } from "@/hooks/useBalanceStream";
