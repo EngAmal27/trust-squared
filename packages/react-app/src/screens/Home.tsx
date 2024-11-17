@@ -2,12 +2,12 @@ import TrustAccount from "@/components/TrustAccount";
 import { useGetMember } from "@/hooks/queries/useGetMember";
 import { useVerifier } from "@/hooks/queries/useVerifier";
 import { useBalanceStream } from "@/hooks/useBalanceStream";
-import { useVerifiedIdentities } from "@/hooks/useVerifiedIdentities";
 import { formatScore } from "@/utils";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-import { BadgeCheck } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useAccount } from "wagmi";
+import { useVerifiedIdentities } from "@/hooks/useVerifiedIdentities";
+import { BadgeCheck } from "lucide-react";
 
 // const formatScore = (rate: string) => {
 //     const score = ((Number(rate) / 1e18) * 1e5).toFixed(2);
