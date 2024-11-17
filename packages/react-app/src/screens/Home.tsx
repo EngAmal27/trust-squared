@@ -46,16 +46,7 @@ export default function Home() {
           level="H"
           includeMargin={true}
         />
-        <div className="py-4 flex gap-4">
-          {Object.entries(identities || {}).map(([k, v]) => {
-            if (v)
-              return (
-                <div key={k} className="flex gap-4">
-                  {k} <BadgeCheck color="blue" />
-                </div>
-              );
-          })}
-        </div>
+
         <div className="py-4 flex gap-4">
           <div className="flex justify-between items-center flex-col">
             <span>Trust Score</span>

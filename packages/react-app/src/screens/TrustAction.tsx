@@ -19,18 +19,21 @@ import { PasteInput } from "@/components/PasteInput";
 import { useGetMember } from "@/hooks/queries/useGetMember";
 import { truncateAddress } from "@/utils";
 
-// @ts-expect-error
 const isMiniPay = window?.ethereum?.isMiniPay;
-const gasOpts = isMiniPay ? {} : {
-  maxFeePerGas: BigInt(5e9),
-  maxPriorityFeePerGas: BigInt(0)
-}
-      
+const gasOpts = isMiniPay
+  ? {}
+  : {
+      maxFeePerGas: BigInt(5e9),
+      maxPriorityFeePerGas: BigInt(0),
+    };
+
 const useGetFlowRate = (sender: string | undefined) => {
   if (!sender) return undefined;
   const memberData = useGetMember(sender);
   // @ts-ignore
-  return memberData.status === "success" ? BigInt(memberData.data?.data?.outFlowRate || 0) : undefined
+  return memberData.status === "success"
+    ? BigInt(memberData.data?.data?.member?.outFlowRate || 0)
+    : undefined;
 };
 
 export const QrScan = () => {
@@ -90,7 +93,7 @@ export const QrScan = () => {
         });
         navigation("/");
       } catch (e: any) {
-        console.log({ e })
+        console.log({ e });
         setLoading(false);
         toast({
           title: "Transaction failed",
