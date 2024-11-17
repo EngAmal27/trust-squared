@@ -19,6 +19,13 @@ import { PasteInput } from "@/components/PasteInput";
 import { useGetMember } from "@/hooks/queries/useGetMember";
 import { truncateAddress } from "@/utils";
 
+// @ts-expect-error
+const isMiniPay = window?.ethereum?.isMiniPay;
+const gasOpts = isMiniPay ? {} : {
+  maxFeePerGas: BigInt(5e9),
+  maxPriorityFeePerGas: BigInt(0)
+}
+      
 const useGetFlowRate = (sender: string | undefined) => {
   if (!sender) return undefined;
   const memberData = useGetMember(sender);
@@ -61,8 +68,7 @@ export const QrScan = () => {
         [result as "0x${string}", monthlyTrustRate]
       );
       const resultPromise = writeContractAsync({
-        maxFeePerGas: BigInt(5e9),
-        maxPriorityFeePerGas: BigInt(0),
+        ...gasOpts,
         abi: ABI,
         functionName: existingFlowRate === 0n ? "createFlow" : "updateFlow",
         address: SF_FORWARDER,
@@ -84,7 +90,7 @@ export const QrScan = () => {
         });
         navigation("/");
       } catch (e: any) {
-        console.log({e})
+        console.log({ e })
         setLoading(false);
         toast({
           title: "Transaction failed",
