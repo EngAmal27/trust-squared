@@ -1,16 +1,14 @@
 import TrustAccount from "@/components/TrustAccount";
+import { POOL_CONTRACT } from "@/env";
 import { useGetMember } from "@/hooks/queries/useGetMember";
 import { useVerifier } from "@/hooks/queries/useVerifier";
 import { useBalanceStream } from "@/hooks/useBalanceStream";
+import { useVerifiedIdentities } from "@/hooks/useVerifiedIdentities";
 import { formatScore } from "@/utils";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import { BadgeCheck } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useAccount } from "wagmi";
-import { useVerifiedIdentities } from "@/hooks/useVerifiedIdentities";
-import { BadgeCheck } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import { useEffect } from "react";
-import { POOL_CONTRACT } from "@/env";
 
 // const formatScore = (rate: string) => {
 //     const score = ((Number(rate) / 1e18) * 1e5).toFixed(2);
@@ -18,32 +16,20 @@ import { POOL_CONTRACT } from "@/env";
 //   };
 
 export default function Home() {
-
-  console.log("home", POOL_CONTRACT);
-
-  const { toast } = useToast();
-
-  useEffect(() => {
-    console.log("toast");
-    toast({
-      title: "Hello",
-      description: "This is a toast",
-    });
-  }, []);
-
   //this will try to get user verified by the backened
   const verifierResult = useVerifier();
-  const account = useAccount()
-  const { data } = useGetMember(account.address as string)
+  const account = useAccount();
+  const { data } = useGetMember(account.address as string);
   // console.log({data, addr: account.address})
-  const identities = useVerifiedIdentities(account.address)
+  const identities = useVerifiedIdentities(account.address);
   // console.log({identities})
 
   // @ts-ignore
   const balance = useBalanceStream(
     account.address,
     // @ts-ignore
-    BigInt(data?.data?.member?.inFlowRate || 0) - BigInt(data?.data?.member?.outFlowRate || 0)
+    BigInt(data?.data?.member?.inFlowRate || 0) -
+      BigInt(data?.data?.member?.outFlowRate || 0)
   );
 
   const { user = {} } = useDynamicContext();
@@ -74,9 +60,13 @@ export default function Home() {
           includeMargin={true}
         />
         <div className="py-4 flex gap-4">
-          {Object.entries(identities || {}).map(([k,v]) => {
-            if(v)
-              return <div className="flex gap-4">{k} <BadgeCheck color="blue"/></div>
+          {Object.entries(identities || {}).map(([k, v]) => {
+            if (v)
+              return (
+                <div key={k} className="flex gap-4">
+                  {k} <BadgeCheck color="blue" />
+                </div>
+              );
           })}
         </div>
         <div className="py-4 flex gap-4">
